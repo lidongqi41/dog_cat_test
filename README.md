@@ -37,16 +37,25 @@ Project/
 ├── sitemap.json                   微信搜索收录规则
 ├── project.config.json            项目配置：AppID、编译选项、打包规则（提交）
 ├── project.private.config.json    个人配置：基础库版本、urlCheck（已忽略，不提交）
+├── README.md                      项目说明、开发与发布流程
 ├── .eslintrc.js                   ESLint 规则（需在工具里装 ESLint 插件才生效）
 ├── .editorconfig                  缩进、编码、换行统一
 ├── .gitattributes                 换行符统一为 LF，二进制文件声明
 ├── .gitignore                     忽略个人配置、依赖产物、日志
+├── docs/
+│   ├── DECISIONS.md               架构与技术决策记录（ADR）
+│   └── HANDOFF.md                 当前进度、下一步、已知问题
 ├── pages/
-│   └── index/                     首页
-│       ├── index.js               页面逻辑：Page({ data, 生命周期, 事件 })
-│       ├── index.json             页面配置：usingComponents
-│       ├── index.wxml             页面结构
-│       └── index.wxss             页面样式
+│   ├── index/                     首页：入口页，展示项目状态 + 跳转按钮
+│   │   ├── index.js               页面逻辑：data、事件处理
+│   │   ├── index.json             页面配置：usingComponents
+│   │   ├── index.wxml             页面结构
+│   │   └── index.wxss             页面样式
+│   └── demo/                      示例页：验证跳转、传参、导航栏返回/回首页
+│       ├── demo.js                接收 onLoad 的 query 参数
+│       ├── demo.json
+│       ├── demo.wxml
+│       └── demo.wxss
 └── components/
     └── navigation-bar/            自定义顶部导航栏
         ├── navigation-bar.js      Component({ properties, data, methods, lifetimes })
@@ -58,7 +67,8 @@ Project/
 ## 本地开发
 
 1. 打开微信开发者工具 → 「导入项目」→ 选择本目录 → 填入 AppID
-2. 工具左侧模拟器应显示一个白色导航栏 + 文字 `Weixin`
+2. 工具左侧模拟器应显示标题「流浪猫狗」、一张项目状态卡片和「查看页面跳转示例」按钮
+3. 点按钮进入示例页，页面右上角有返回和回首页按钮，可验证导航与传参
 3. 开发期建议勾选「详情 → 本地设置 → 不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书」
    （对应 `project.private.config.json` 的 `urlCheck: false`，只影响本机）
 
@@ -196,19 +206,19 @@ git push origin v1.0.0
 | 真机预览扫码后报错 | AppID 不是你自己的、没有开发者权限、或请求域名不在白名单 |
 | `找不到 miniprogram_npm 下的模块` | 工具菜单「工具 → 构建 npm」，不能只 `npm install` |
 | Skyline 下样式不生效 | 该 CSS 属性不被 Skyline 支持，改用 flex/grid 子集；或页面级切回 webview |
-| 返回/首页按钮点了没反应 | 已知问题，见下方 TODO |
+| 点按钮没反应 | 先看控制台有没有 `Component "..." does not have a method "xxx"`，这是事件绑定了不存在的方法 |
 
 ## TODO / 已知问题
 
-完整清单、优先级和操作步骤维护在 [docs/HANDOFF.md](docs/HANDOFF.md)，这里只留最要紧的两条：
+完整清单、优先级和操作步骤维护在 [docs/HANDOFF.md](docs/HANDOFF.md)，这里只留最要紧的一条：
 
 - [ ] 确认 AppID `wxc53b5fb50a25beba` 是否为本人所有，否则无法真机预览和上传
-- [ ] `components/navigation-bar/navigation-bar.wxml` 绑定了 `bindtap="home"`，但 `navigation-bar.js` 没有 `home` 方法；当前 `homeButton` 默认 `false` 所以不显现，一旦启用会点击无反应
 
 ## 版本记录
 
 | 版本 | 内容 | 小程序上传版本号 |
 |---|---|---|
+| `v0.1.1` | 首页改为入口页（状态卡片 + 跳转按钮），新增 `pages/demo` 示例页，修复导航栏缺 `home` 方法 | 尚未上传 |
 | `v0.1.0` | 项目骨架 + 工程化配置（git 流程、文档、GitHub/Gitee 双远程） | 尚未上传 |
 
 发版流程：`main` 合并完成并推送后打 tag，tag 名与小程序后台「上传」时填的版本号保持一致。
