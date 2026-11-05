@@ -5,6 +5,14 @@
 
 一个从**空白模板**起步的微信小程序项目，当前只有首页骨架，用于后续功能开发。
 
+## 文档索引
+
+| 文件 | 内容 | 什么时候读 |
+|---|---|---|
+| [README.md](README.md) | 项目说明、目录结构、开发与发布流程 | 第一次接触项目 |
+| [docs/DECISIONS.md](docs/DECISIONS.md) | 架构与技术决策记录（ADR），写「为什么这么定」 | 想改技术方案前 |
+| [docs/HANDOFF.md](docs/HANDOFF.md) | 当前进度、下一步待办、已知问题 | **新会话/接手先读这份** |
+
 ## 技术栈
 
 | 项 | 取值 |
@@ -192,12 +200,10 @@ git push origin v1.0.0
 
 ## TODO / 已知问题
 
-- [ ] `components/navigation-bar/navigation-bar.wxml` 绑定了 `bindtap="home"`，
-      但 `navigation-bar.js` 的 `methods` 里没有 `home` 方法。当前 `homeButton` 默认 `false`
-      所以不显现，一旦启用会点击无反应。需补 `home()` 方法（`wx.reLaunch` 回首页）。
-- [ ] 确认 AppID `wxc53b5fb50a25beba` 是否为本人所有，否则无法真机预览和上传。
-- [ ] `app.json` 的 `navigationBarTextStyle` 在 `navigationStyle: custom` 下无意义，可清理。
-- [ ] `.eslintrc.js` 未 `extends` 任何规则集，且 `ecmaFeatures` 位置有误，实际不检查代码。
+完整清单、优先级和操作步骤维护在 [docs/HANDOFF.md](docs/HANDOFF.md)，这里只留最要紧的两条：
+
+- [ ] 确认 AppID `wxc53b5fb50a25beba` 是否为本人所有，否则无法真机预览和上传
+- [ ] `components/navigation-bar/navigation-bar.wxml` 绑定了 `bindtap="home"`，但 `navigation-bar.js` 没有 `home` 方法；当前 `homeButton` 默认 `false` 所以不显现，一旦启用会点击无反应
 
 ## 版本记录
 
