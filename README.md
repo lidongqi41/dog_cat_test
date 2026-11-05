@@ -85,6 +85,10 @@ pages/detail/detail.json
 | `dev` | 日常开发 | 功能完成、自测通过后合并进 `main` |
 | `feature/xxx` | 单个功能（可选） | 从 `dev` 切出，完成后删掉 |
 
+> `main` 已在 GitHub 开启分支保护：**禁止强制推送、禁止删除分支、要求线性历史**，
+> 且规则对管理员同样生效。所以 `main` 只能往前追加，历史被改写或分支被误删都会被服务端拒绝。
+> 日常提交请直接在 `dev` 上做，不要尝试 `git push --force` 到 `main`。
+
 ```bash
 git checkout dev
 git checkout -b feature/list-page      # 开功能分支（可选）
