@@ -174,3 +174,16 @@ git push origin v1.0.0
 - [ ] 确认 AppID `wxc53b5fb50a25beba` 是否为本人所有，否则无法真机预览和上传。
 - [ ] `app.json` 的 `navigationBarTextStyle` 在 `navigationStyle: custom` 下无意义，可清理。
 - [ ] `.eslintrc.js` 未 `extends` 任何规则集，且 `ecmaFeatures` 位置有误，实际不检查代码。
+
+## 版本记录
+
+| 版本 | 内容 | 小程序上传版本号 |
+|---|---|---|
+| `v0.1.0` | 项目骨架 + 工程化配置（git 流程、文档、GitHub/Gitee 双远程） | 尚未上传 |
+
+发版流程：`main` 合并完成并推送后打 tag，tag 名与小程序后台「上传」时填的版本号保持一致。
+
+```bash
+git tag -a v0.1.1 -m "改了什么"
+git push origin v0.1.1 && git push gitee v0.1.1
+```
