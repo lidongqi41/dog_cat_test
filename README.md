@@ -101,21 +101,45 @@ git merge --no-ff feature/list-page    # 合并并保留分支痕迹
 
 ### 远程仓库（双远程）
 
-| 远程 | 地址 | 角色 |
-|---|---|---|
-| `origin` | `https://github.com/lidongqi41/dog_cat_test` | 主仓库，本地 `main`/`dev` 的跟踪上游 |
-| `gitee` | `git@gitee.com:likedonqi/dog_cat_test.git` | 镜像，SSH 免密推送 |
+两个平台的**代码内容、分支、tag 完全一致**，差异只在接入方式和平台规则，所以分开记录。
 
-`git push` 默认只推 `origin`。要两个平台一起同步：
+**共同约定**
+
+- 代码以 GitHub 为准，不要在任何平台的网页上直接改，否则两边分叉
+- `git push` 只推 `origin`（GitHub）。要两边同步：
 
 ```bash
 git push-all      # 别名：依次推送 origin 和 gitee 的 main、dev
 ```
 
-**以 GitHub 为准**：不要在 Gitee 网页上直接改代码，否则两边会分叉。Gitee 侧的价值是国内访问速度和异地备份。
+- **tag 不会随 `push-all` 自动推送**，发版后单独推：`git push origin v0.1.1 && git push gitee v0.1.1`
 
-Gitee 走 SSH 密钥认证，私钥在 `~/.ssh/id_ed25519`（无口令，靠「公钥可随时吊销」兜底）。
-换机器或怀疑泄露时：Gitee → 设置 → SSH 公钥，删掉旧公钥，本机重新 `ssh-keygen` 再贴一次即可。
+#### GitHub 侧（`origin`）
+
+| 项 | 值 |
+|---|---|
+| 地址 | `https://github.com/lidongqi41/dog_cat_test` |
+| 账号 | `lidongqi41` |
+| 认证 | HTTPS + Windows 凭据管理器缓存令牌，不用输密码 |
+| 角色 | 主仓库，本地 `main`/`dev` 的跟踪上游，`git pull` 默认从这里拉 |
+| 默认分支 | `main` |
+| 分支保护 | **已开启**：禁止强制推送、禁止删除分支、要求线性历史（`enforce_admins` 也为开，管理员同样受约束） |
+| 调整规则 | 网页 Settings → Branches；或 API `PUT /repos/lidongqi41/dog_cat_test/branches/main/protection` |
+| 平台的坑 | 免费账号的**私有仓库不支持**分支保护，把仓库切成私有会丢掉上面那三条规则 |
+
+#### Gitee 侧（`gitee`）
+
+| 项 | 值 |
+|---|---|
+| 地址 | `git@gitee.com:likedonqi/dog_cat_test.git` |
+| 账号 | `likedonqi` |
+| 认证 | SSH ed25519 密钥，私钥在 `~/.ssh/id_ed25519`（无口令），免密推送 |
+| 角色 | 镜像 + 异地备份，兼顾国内访问速度；**不作为开发入口** |
+| 默认分支 | **`dev`（待改成 `main`）**：仓库为空时 Gitee 把最后推送的分支设成了默认 |
+| 分支保护 | 未开启。Gitee 的**免费私有仓库也支持**保护分支，可以补位 GitHub 的短板 |
+| 自动生成的内容 | `LICENSE`（木兰宽松许可证 v2），Gitee 在公开仓库上自动提交，已并入主线 |
+| 换密钥 | Gitee → 设置 → SSH 公钥，删掉旧公钥，本机重新 `ssh-keygen` 再贴一次 |
+| 平台的坑 | 默认分支还是 `dev` 时，别人打开仓库首页看到的是开发中的代码，不是可发布版本 |
 
 ### 提交信息规范
 
