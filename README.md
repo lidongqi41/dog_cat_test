@@ -99,6 +99,24 @@ git checkout dev
 git merge --no-ff feature/list-page    # 合并并保留分支痕迹
 ```
 
+### 远程仓库（双远程）
+
+| 远程 | 地址 | 角色 |
+|---|---|---|
+| `origin` | `https://github.com/lidongqi41/dog_cat_test` | 主仓库，本地 `main`/`dev` 的跟踪上游 |
+| `gitee` | `git@gitee.com:likedonqi/dog_cat_test.git` | 镜像，SSH 免密推送 |
+
+`git push` 默认只推 `origin`。要两个平台一起同步：
+
+```bash
+git push-all      # 别名：依次推送 origin 和 gitee 的 main、dev
+```
+
+**以 GitHub 为准**：不要在 Gitee 网页上直接改代码，否则两边会分叉。Gitee 侧的价值是国内访问速度和异地备份。
+
+Gitee 走 SSH 密钥认证，私钥在 `~/.ssh/id_ed25519`（无口令，靠「公钥可随时吊销」兜底）。
+换机器或怀疑泄露时：Gitee → 设置 → SSH 公钥，删掉旧公钥，本机重新 `ssh-keygen` 再贴一次即可。
+
 ### 提交信息规范
 
 `<类型>: <一句话说明>`
