@@ -1,0 +1,10 @@
+<!--demo.wxml-->
+<navigation-bar title="示例页" back="{{true}}" home-button="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="page">
+    <view class="title">页面跳转成功</view>
+    <view class="desc">来源参数 from = {{from}}</view>
+    <view class="tip">这个页面用于验证四件套页面结构、app.json 注册、wx.navigateTo 传参，以及导航栏的返回和回首页按钮。</view>
+  </view>
+</scroll-view>

@@ -97,6 +97,13 @@ Component({
         })
       }
       this.triggerEvent('back', { delta: data.delta }, {})
+    },
+    // 回首页：关闭所有页面后重新打开首页
+    home() {
+      wx.reLaunch({
+        url: '/pages/index/index'
+      })
+      this.triggerEvent('home', {}, {})
     }
   },
 })
