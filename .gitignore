@@ -1,0 +1,27 @@
+# ===== 微信开发者工具 =====
+# 个人开发环境配置：基础库版本、是否校验合法域名、编译开关等，
+# 每台机器可能不同，不纳入版本管理（团队协作时尤其重要）
+project.private.config.json
+
+# 开发者工具产生的日志
+*.log
+debug.log
+
+# ===== 依赖与构建产物 =====
+node_modules/
+# 「工具 → 构建 npm」自动生成的产物，可由 npm 依赖还原
+miniprogram_npm/
+package-lock.json.bak
+
+# ===== 系统与编辑器 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+
+# ===== 构建 / 测试产物 =====
+dist/
+coverage/
