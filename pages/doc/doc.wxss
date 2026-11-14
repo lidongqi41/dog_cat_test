@@ -1,0 +1,6 @@
+.doc__p {
+  margin-bottom: 18rpx;
+  font-size: 28rpx;
+  line-height: 1.85;
+  color: #333333;
+}

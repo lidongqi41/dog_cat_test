@@ -1,0 +1,10 @@
+<view class="state">
+  <view wx:if="{{status === 'loading'}}" class="state__loading">加载中…</view>
+  <block wx:elif="{{status === 'error'}}">
+    <view class="state__title">{{text || '加载失败'}}</view>
+    <view wx:if="{{retryable}}" class="state__btn" bindtap="onRetry">重试</view>
+  </block>
+  <block wx:else>
+    <view class="state__title">{{text || '暂无数据'}}</view>
+  </block>
+</view>

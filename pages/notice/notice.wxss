@@ -1,0 +1,22 @@
+.notice__title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #111111;
+}
+
+.notice__time {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: #8a8f99;
+}
+
+.notice__body {
+  margin-top: 28rpx;
+}
+
+.notice__p {
+  margin-bottom: 18rpx;
+  font-size: 28rpx;
+  line-height: 1.85;
+  color: #333333;
+}

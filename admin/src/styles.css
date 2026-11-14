@@ -1,0 +1,204 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #f5f7fa;
+  color: #1f2329;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+}
+
+.admin-layout {
+  height: 100%;
+}
+
+.admin-aside {
+  background: #1f2937;
+  color: #fff;
+}
+
+.admin-logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.admin-aside .el-menu {
+  border-right: none;
+  background: transparent;
+}
+
+.admin-aside .el-menu-item {
+  color: #cbd5e1;
+}
+
+.admin-aside .el-menu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.admin-aside .el-menu-item.is-active {
+  background: #07c160;
+  color: #fff;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-header__title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.admin-header__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #6b7280;
+}
+
+.admin-main {
+  padding: 20px;
+}
+
+.page-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.page-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.page-toolbar__spacer {
+  flex: 1;
+}
+
+.pagination-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.stat-grid {
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-card__label {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.stat-card__value {
+  margin-top: 10px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.stat-card__hint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.login-page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e8f7ef 0%, #f5f7fa 60%, #eef2ff 100%);
+}
+
+.login-card {
+  width: 400px;
+  padding: 8px 12px 20px;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.login-subtitle {
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.login-hint {
+  margin-top: 14px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.table-cover {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: #eef1f4;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.image-grid .el-image {
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
+  background: #eef1f4;
+}
+
+.form-tip {
+  color: #9ca3af;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 6px;
+}
+
+.detail-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #6b7280;
+}

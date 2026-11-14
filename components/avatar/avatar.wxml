@@ -1,0 +1,4 @@
+<view class="avatar" style="width: {{size}}rpx; height: {{size}}rpx; background: {{src ? '#eef1f4' : color}};">
+  <image wx:if="{{src}}" class="avatar__img" src="{{src}}" mode="aspectFill"></image>
+  <text wx:else class="avatar__text" style="font-size: {{size * 0.4}}rpx;">{{initial}}</text>
+</view>

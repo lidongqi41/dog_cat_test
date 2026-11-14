@@ -1,0 +1,26 @@
+<navigation-bar title="我的" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <view class="card profile">
+      <avatar src="{{avatar}}" name="{{nickname}}" size="{{120}}"></avatar>
+      <view class="profile__info">
+        <view class="profile__name">{{nickname || '微信用户'}}</view>
+        <view class="profile__desc">{{loggedIn ? '微信账号登录' : '未登录'}}</view>
+      </view>
+      <view wx:if="{{loggedIn}}" class="profile__edit" bindtap="goProfile">编辑</view>
+    </view>
+
+    <button wx:if="{{!loggedIn}}" class="btn" bindtap="login">微信登录</button>
+
+    <view class="card">
+      <view class="link" bindtap="goMyAdopt">我的申请</view>
+      <view class="link" bindtap="goMySubmit">我的投稿</view>
+      <view class="link" bindtap="goFavorite">我的收藏</view>
+      <view class="link" bindtap="goFeedback">意见反馈</view>
+      <view class="link" bindtap="goSetting">设置</view>
+    </view>
+
+    <view class="tip">暖爪 WarmPaws 只提供信息展示与领养申请，不收取任何费用。</view>
+  </view>
+</scroll-view>

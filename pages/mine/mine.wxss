@@ -1,0 +1,30 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profile__info {
+  flex: 1;
+  padding-left: 24rpx;
+}
+
+.profile__name {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #111111;
+}
+
+.profile__desc {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #8a8f99;
+}
+
+.profile__edit {
+  padding: 8rpx 24rpx;
+  font-size: 24rpx;
+  color: #07c160;
+  border: 1rpx solid #07c160;
+  border-radius: 999rpx;
+}

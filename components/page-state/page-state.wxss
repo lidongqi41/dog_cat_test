@@ -1,0 +1,28 @@
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 48rpx;
+}
+
+.state__loading {
+  font-size: 26rpx;
+  color: #8a8f99;
+}
+
+.state__title {
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: #8a8f99;
+  text-align: center;
+}
+
+.state__btn {
+  margin-top: 24rpx;
+  padding: 14rpx 40rpx;
+  font-size: 26rpx;
+  color: #07c160;
+  border: 1rpx solid #07c160;
+  border-radius: 999rpx;
+}

@@ -1,15 +1,16 @@
-# 流浪猫狗 test · 微信小程序
+# 暖爪 WarmPaws · 微信小程序
 
 > 仓库：https://github.com/lidongqi41/dog_cat_test
 > 分支：`main` 只放可发布版本，日常开发在 `dev` 上，发版时 `main` 快进合并 `dev`
 
-一个从**空白模板**起步的微信小程序项目，当前只有首页骨架，用于后续功能开发。
+原生微信小程序，已实现 15 个页面的前端：动物档案、搜索筛选、领养申请与撤销、动物投稿、收藏、公告、个人资料、意见反馈、设置与注销。开发版默认连本地后端（`server/`），控制台 `wx.setStorageSync('__use_mock', true)` 可切回 Mock。
 
 ## 文档索引
 
 | 文件 | 内容 | 什么时候读 |
 |---|---|---|
 | [README.md](README.md) | 项目说明、目录结构、开发与发布流程 | 第一次接触项目 |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 分层、目录、数据语义、接口清单、边界 | 改代码前 |
 | [docs/DECISIONS.md](docs/DECISIONS.md) | 架构与技术决策记录（ADR），写「为什么这么定」 | 想改技术方案前 |
 | [docs/HANDOFF.md](docs/HANDOFF.md) | 当前进度、下一步待办、已知问题 | **新会话/接手先读这份** |
 
@@ -22,6 +23,9 @@
 | 基础库 | `3.17.6` |
 | 开发范式 | 原生 WXML / WXSS / JS（无 Vue、无 Taro、无 uni-app） |
 | 开发者工具 | 2.02.x（安装在 `E:\wexin_kafazhe_gongjuTencent\微信web开发者工具`） |
+| 后端 | Spring Boot 3 + MySQL 8 + 云托管 Docker + COS |
+| 管理端 | Vue 3 + Vite + Element Plus（`admin/`） |
+| 依赖 | 无 npm 依赖；Node 仅用于 `scripts/` 静态检查与冒烟测试 |
 
 > Skyline 的限制比 WebView 严格：CSS 只支持子集、没有 `document`/`window`、
 > `scroll-view` 必须显式写 `type="list"` 或 `type="custom"`。想省心可以在
@@ -31,46 +35,103 @@
 
 ```
 Project/
-├── app.js                         小程序入口（App 实例、全局生命周期、globalData）
-├── app.json                       全局配置：页面路由、窗口、渲染引擎、分包、tabBar
-├── app.wxss                       全局样式
+├── app.js / app.json / app.wxss   入口、全局配置、全局样式
 ├── sitemap.json                   微信搜索收录规则
-├── project.config.json            项目配置：AppID、编译选项、打包规则（提交）
-├── project.private.config.json    个人配置：基础库版本、urlCheck（已忽略，不提交）
-├── README.md                      项目说明、开发与发布流程
-├── .eslintrc.js                   ESLint 规则（需在工具里装 ESLint 插件才生效）
-├── .editorconfig                  缩进、编码、换行统一
-├── .gitattributes                 换行符统一为 LF，二进制文件声明
-├── .gitignore                     忽略个人配置、依赖产物、日志
-├── docs/
-│   ├── DECISIONS.md               架构与技术决策记录（ADR）
-│   └── HANDOFF.md                 当前进度、下一步、已知问题
-├── pages/
-│   ├── index/                     首页：入口页，展示项目状态 + 跳转按钮
-│   │   ├── index.js               页面逻辑：data、事件处理
-│   │   ├── index.json             页面配置：usingComponents
-│   │   ├── index.wxml             页面结构
-│   │   └── index.wxss             页面样式
-│   └── demo/                      示例页：验证跳转、传参、导航栏返回/回首页
-│       ├── demo.js                接收 onLoad 的 query 参数
-│       ├── demo.json
-│       ├── demo.wxml
-│       └── demo.wxss
-└── components/
-    └── navigation-bar/            自定义顶部导航栏
-        ├── navigation-bar.js      Component({ properties, data, methods, lifetimes })
-        ├── navigation-bar.json    component: true
-        ├── navigation-bar.wxml
-        └── navigation-bar.wxss
+├── project.config.json            项目配置：AppID、编译选项（提交）
+├── project.private.config.json    个人配置（已忽略，不提交）
+├── config/
+│   ├── index.js                   环境配置：dev / trial / prod 自动识别
+│   ├── constants.js               业务枚举与状态文案
+│   └── agreements.js              用户协议、隐私政策、领养须知
+├── utils/
+│   ├── request.js                 统一请求层：token、解包、401、错误归一
+│   ├── store.js                   极简全局状态
+│   ├── cache.js                   业务缓存（保留登录态与头像）
+│   ├── avatar.js                  本机头像保存/读取
+│   ├── mock.js                    Mock 数据与接口实现
+│   ├── page.js                    页面工厂
+│   └── format.js / validate.js
+├── services/
+│   ├── auth.js  home.js  content.js  animal.js  favorite.js
+│   └── adoption.js  submission.js  user.js  notice.js  feedback.js
+├── components/
+│   ├── navigation-bar/            自定义顶部导航栏
+│   ├── avatar/                    本机头像 + 文字头像兜底
+│   └── page-state/                加载 / 空 / 错误三态
+├── styles/
+│   ├── variables.wxss             设计变量
+│   └── common.wxss                通用样式
+├── pages/                         15 个页面
+│   ├── index/  animal/  animal-detail/  notice/
+│   ├── submit/  my-submit/  adopt/  my-adopt/  favorite/
+│   ├── mine/  profile/  feedback/
+│   └── setting/  doc/  cancel/
+├── admin/                         Vue 管理后台（Vite + Element Plus）
+├── server/                        Spring Boot 后端（Maven）
+├── scripts/
+│   ├── check.js                   JSON / JS / 页面四件套 / WXML 检查
+│   └── smoke.js                   Mock 链路冒烟测试
+└── docs/
+    ├── ARCHITECTURE.md            分层、接口、数据语义、边界
+    ├── DECISIONS.md               ADR
+    └── HANDOFF.md                 进度与交接
 ```
 
 ## 本地开发
 
 1. 打开微信开发者工具 → 「导入项目」→ 选择本目录 → 填入 AppID
-2. 工具左侧模拟器应显示标题「流浪猫狗」、一张项目状态卡片和「查看页面跳转示例」按钮
-3. 点按钮进入示例页，页面右上角有返回和回首页按钮，可验证导航与传参
-3. 开发期建议勾选「详情 → 本地设置 → 不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书」
+2. 先启动 `server/` 后端（见下一节），开发版默认连 `http://127.0.0.1:8080`
+3. 首页、动物列表、详情、领养申请、动物投稿、收藏、注销都能走通
+4. 开发期建议勾选「详情 → 本地设置 → 不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书」
    （对应 `project.private.config.json` 的 `urlCheck: false`，只影响本机）
+5. 提交前跑检查：
+
+```bash
+node scripts/check.js
+node scripts/smoke.js
+```
+
+## Mock 与真实后端
+
+| 模式 | 条件 | 行为 |
+|---|---|---|
+| 真实（默认） | 开发版 `mock: false`，`apiBase` 指向本地后端 | 所有 service 走 `wx.request` / `wx.uploadFile` |
+| Mock | 开发者工具控制台执行 `wx.setStorageSync('__use_mock', true)` 后重新编译 | 数据存 storage 的 `mock:db`，不发起网络请求 |
+
+- 接口清单与响应约定见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；
+- 从 Mock 切回真实后端前，先清一次 storage，避免旧 Mock 数据干扰；
+- Mock 数据重置：删除 storage 里的 `mock:db`，下次启动会重新写入 8 只动物和 3 条公告。
+
+## 后端（server/）
+
+后端工程在同一仓库的 `server/` 目录：Spring Boot 3 + MySQL 8 + Flyway + JWT，已通过 `mvn package` 编译。
+
+```bash
+cd server
+cp .env.example .env
+docker compose up --build
+```
+
+- 健康检查：`http://127.0.0.1:8080/api/v1/health`
+- 默认管理员：`admin / admin123`（首次启动自动创建）
+- 小程序联调：开发版已默认连 `http://127.0.0.1:8080`，无需再改 `mock`
+- 接口清单、环境变量与云部署说明见 [server/README.md](server/README.md)
+
+## 管理后台（admin/）
+
+Vue 3 + Vite + Element Plus，覆盖登录、数据概览、投稿审核、领养申请、动物档案。
+
+```bash
+cd admin
+npm install
+npm run dev
+```
+
+- 地址：`http://127.0.0.1:5174`
+- 默认管理员：`admin / admin123`
+- 先启动 `server/`，Vite 会把 `/api` 代理到 `127.0.0.1:8080`
+- 生产构建：`npm run build`，产物在 `admin/dist/`；跨域部署时用 `VITE_API_BASE` 指定后端地址
+- 说明见 [admin/README.md](admin/README.md)
 
 ## 新增一个页面
 
@@ -92,6 +153,8 @@ pages/detail/detail.json
 ```
 
 跳转：`wx.navigateTo({ url: '/pages/detail/detail?id=1' })`
+
+> tab 页必须放在主包（`pages/` 下），其余页面目前也都在主包。等页面超过 20 个再按业务域分包，主包控制在 2MB 内。
 
 ## Git 工作流
 
@@ -207,6 +270,10 @@ git push origin v1.0.0
 | `找不到 miniprogram_npm 下的模块` | 工具菜单「工具 → 构建 npm」，不能只 `npm install` |
 | Skyline 下样式不生效 | 该 CSS 属性不被 Skyline 支持，改用 flex/grid 子集；或页面级切回 webview |
 | 点按钮没反应 | 先看控制台有没有 `Component "..." does not have a method "xxx"`，这是事件绑定了不存在的方法 |
+| 页面数据像是假的 | 开发版默认 Mock，改 `config/index.js` 的 `mock: false` 并填 `apiBase` |
+| 换设备后头像没了 | 头像只存本机，属于预期；重新点「使用微信头像」即可 |
+| 清缓存后还是登录状态 | 预期：只清业务缓存，登录态和头像保留 |
+| 申请按钮是灰的 | 动物状态不是「待领养」，或已有待审核申请 |
 
 ## TODO / 已知问题
 
@@ -218,6 +285,7 @@ git push origin v1.0.0
 
 | 版本 | 内容 | 小程序上传版本号 |
 |---|---|---|
+| `v0.2.0`（待发布） | 15 页前端：动物档案、领养申请与撤销、动物投稿、收藏、公告、资料、反馈、设置、注销；请求/登录/缓存/头像底座；Mock 与检查脚本；`server/` 后端 | 未上传 |
 | `v0.1.1` | 首页改为入口页（状态卡片 + 跳转按钮），新增 `pages/demo` 示例页，修复导航栏缺 `home` 方法 | 尚未上传 |
 | `v0.1.0` | 项目骨架 + 工程化配置（git 流程、文档、GitHub/Gitee 双远程） | 尚未上传 |
 

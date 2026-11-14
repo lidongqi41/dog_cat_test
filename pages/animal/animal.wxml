@@ -1,0 +1,88 @@
+<navigation-bar title="动物" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view
+  class="page-scroll"
+  scroll-y
+  type="list"
+  lower-threshold="120"
+  bindscrolltolower="onReachBottom"
+  refresher-enabled
+  refresher-triggered="{{refreshing}}"
+  bindrefresherrefresh="onRefresh"
+>
+  <view class="container">
+    <view class="search">
+      <input
+        class="search__input"
+        value="{{keyword}}"
+        placeholder="搜索名字、品种、地点"
+        confirm-type="search"
+        bindinput="onKeywordInput"
+        bindconfirm="onSearch"
+      />
+      <view wx:if="{{keyword}}" class="search__clear" bindtap="clearKeyword">清除</view>
+      <view class="search__btn" bindtap="onSearch">搜索</view>
+    </view>
+
+    <view class="chips">
+      <view
+        wx:for="{{typeOptions}}"
+        wx:key="value"
+        class="chip {{type === item.value ? 'chip--active' : ''}}"
+        bindtap="onTypeChange"
+        data-value="{{item.value}}"
+      >{{item.label}}</view>
+    </view>
+
+    <view class="chips">
+      <view
+        wx:for="{{statusOptions}}"
+        wx:key="value"
+        class="chip {{status === item.value ? 'chip--active' : ''}}"
+        bindtap="onStatusChange"
+        data-value="{{item.value}}"
+      >{{item.label}}</view>
+    </view>
+
+    <view
+      wx:for="{{list}}"
+      wx:key="id"
+      class="animal-card"
+      bindtap="goDetail"
+      data-id="{{item.id}}"
+    >
+      <view class="animal-card__cover">
+        <image wx:if="{{item.cover}}" class="animal-card__img" src="{{item.cover}}" mode="aspectFill"></image>
+        <text wx:else class="animal-card__emoji">{{item.type === 'cat' ? '🐱' : '🐶'}}</text>
+      </view>
+      <view class="animal-card__body">
+        <view class="animal-card__name">{{item.name}}</view>
+        <view class="animal-card__meta">{{item.breed}} · {{item.age}} · {{item.genderLabel}}</view>
+        <view class="animal-card__foot">
+          <text class="tag tag--{{item.statusColor}}">{{item.statusLabel}}</text>
+          <text class="animal-card__loc">{{item.location}}</text>
+        </view>
+      </view>
+    </view>
+
+    <page-state
+      wx:if="{{loading && !list.length}}"
+      status="loading"
+    ></page-state>
+
+    <page-state
+      wx:elif="{{error && !list.length}}"
+      status="error"
+      text="{{error}}"
+      bind:retry="onRefresh"
+    ></page-state>
+
+    <page-state
+      wx:elif="{{!loading && !list.length}}"
+      status="empty"
+      text="没有找到符合条件的动物"
+    ></page-state>
+
+    <view wx:if="{{list.length && !hasMore}}" class="tip tip--center">已经到底了</view>
+  </view>
+</scroll-view>

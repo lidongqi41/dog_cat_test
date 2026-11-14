@@ -1,0 +1,4 @@
+.favorite__remove {
+  font-size: 22rpx;
+  color: #8a8f99;
+}

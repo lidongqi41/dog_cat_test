@@ -1,0 +1,28 @@
+<navigation-bar
+  title="公告详情"
+  back="{{showBack}}"
+  homeButton="{{showHome}}"
+  color="black"
+  background="#FFF"
+></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <page-state wx:if="{{loading && !notice}}" status="loading"></page-state>
+
+    <page-state
+      wx:elif="{{error}}"
+      status="error"
+      text="{{error}}"
+      bind:retry="load"
+    ></page-state>
+
+    <view class="card" wx:elif="{{notice}}">
+      <view class="notice__title">{{notice.title}}</view>
+      <view class="notice__time">{{notice.publishedAtText}}</view>
+      <view class="notice__body">
+        <view wx:for="{{notice.paragraphs}}" wx:key="*this" class="notice__p">{{item}}</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

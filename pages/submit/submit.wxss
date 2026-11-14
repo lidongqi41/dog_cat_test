@@ -1,0 +1,85 @@
+.photos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 8rpx;
+}
+
+.photo {
+  position: relative;
+  width: 190rpx;
+  height: 190rpx;
+  margin: 0 16rpx 16rpx 0;
+  background: #eef1f4;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.photo__img {
+  width: 190rpx;
+  height: 190rpx;
+}
+
+.photo--add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx dashed #c9ced6;
+  background: #fafbfc;
+}
+
+.photo__plus {
+  font-size: 56rpx;
+  color: #8a8f99;
+}
+
+.photo__remove {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 36rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 999rpx;
+}
+
+.toggle-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 0;
+}
+
+.toggle-row__label {
+  font-size: 28rpx;
+  color: #111111;
+}
+
+.switch {
+  width: 88rpx;
+  height: 50rpx;
+  padding: 4rpx;
+  background: #e5e7eb;
+  border-radius: 999rpx;
+  box-sizing: border-box;
+}
+
+.switch--on {
+  background: #07c160;
+}
+
+.switch__dot {
+  width: 42rpx;
+  height: 42rpx;
+  background: #ffffff;
+  border-radius: 999rpx;
+}
+
+.switch--on .switch__dot {
+  margin-left: 38rpx;
+}

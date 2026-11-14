@@ -1,0 +1,90 @@
+<navigation-bar title="我的投稿" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view
+  class="page-scroll"
+  scroll-y
+  type="list"
+  lower-threshold="120"
+  bindscrolltolower="onReachBottom"
+>
+  <view class="container">
+    <view class="chips">
+      <view
+        wx:for="{{tabs}}"
+        wx:key="value"
+        class="chip {{status === item.value ? 'chip--active' : ''}}"
+        bindtap="onTabChange"
+        data-value="{{item.value}}"
+      >{{item.label}}</view>
+    </view>
+
+    <view wx:for="{{list}}" wx:key="id" class="card">
+      <view class="status-line">
+        <view class="submit__name">{{item.name}}</view>
+        <text class="tag tag--{{item.statusColor}}">{{item.statusLabel}}</text>
+      </view>
+
+      <view class="row">
+        <text class="row__key">类型</text>
+        <text class="row__value">{{item.typeLabel}} · {{item.age}}</text>
+      </view>
+      <view class="row">
+        <text class="row__key">提交时间</text>
+        <text class="row__value">{{item.createdAtText}}</text>
+      </view>
+      <view class="row" wx:if="{{item.reviewedAtText}}">
+        <text class="row__key">审核时间</text>
+        <text class="row__value">{{item.reviewedAtText}}</text>
+      </view>
+      <view class="row" wx:if="{{item.rejectReason}}">
+        <text class="row__key">驳回原因</text>
+        <text class="row__value">{{item.rejectReason}}</text>
+      </view>
+
+      <image
+        wx:if="{{item.images && item.images.length}}"
+        class="submit__thumb"
+        src="{{item.images[0]}}"
+        mode="aspectFill"
+        bindtap="previewImage"
+        data-url="{{item.images[0]}}"
+      ></image>
+
+      <view class="action-row" wx:if="{{item.canWithdraw || item.animalId}}">
+        <button
+          wx:if="{{item.canWithdraw}}"
+          class="btn btn--ghost btn--small"
+          bindtap="withdraw"
+          data-id="{{item.id}}"
+          loading="{{withdrawingId === item.id}}"
+        >撤回投稿</button>
+        <button
+          wx:if="{{item.animalId}}"
+          class="btn btn--small"
+          bindtap="goAnimal"
+          data-id="{{item.animalId}}"
+        >查看已发布动物</button>
+      </view>
+    </view>
+
+    <page-state
+      wx:if="{{loading && !list.length}}"
+      status="loading"
+    ></page-state>
+
+    <page-state
+      wx:elif="{{error && !list.length}}"
+      status="error"
+      text="{{error}}"
+      bind:retry="load"
+    ></page-state>
+
+    <page-state
+      wx:elif="{{!loading && !list.length}}"
+      status="empty"
+      text="还没有提交过动物投稿"
+    ></page-state>
+
+    <view wx:if="{{list.length && !hasMore}}" class="tip tip--center">已经到底了</view>
+  </view>
+</scroll-view>

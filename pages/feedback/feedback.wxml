@@ -1,0 +1,34 @@
+<navigation-bar title="意见反馈" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <view class="card">
+      <view class="field">
+        <view class="field__label">反馈内容 *</view>
+        <textarea
+          class="field__textarea"
+          value="{{content}}"
+          maxlength="500"
+          placeholder="说说遇到的问题或建议，5-500 字"
+          data-field="content"
+          bindinput="onInput"
+        ></textarea>
+      </view>
+
+      <view class="field">
+        <view class="field__label">联系方式（选填）</view>
+        <input
+          class="field__input"
+          value="{{contact}}"
+          placeholder="微信号或手机号，方便我们回复"
+          data-field="contact"
+          bindinput="onInput"
+        />
+      </view>
+    </view>
+
+    <view class="tip">反馈仅支持文字，不支持上传截图。</view>
+
+    <button class="btn" bindtap="submit" loading="{{submitting}}">提交反馈</button>
+  </view>
+</scroll-view>

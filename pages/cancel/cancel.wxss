@@ -1,0 +1,10 @@
+.cancel__item {
+  padding: 14rpx 0;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: #333333;
+}
+
+.btn--danger {
+  background: #eb5757;
+}

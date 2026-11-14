@@ -1,0 +1,10 @@
+page {
+  --color-primary: #07c160;
+  --color-text: #111111;
+  --color-text-weak: #8a8f99;
+  --color-border: #ebedf0;
+  --color-bg: #f7f8fa;
+  --color-card: #ffffff;
+  --radius-card: 20rpx;
+  --space-page: 32rpx;
+}

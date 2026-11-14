@@ -1,0 +1,22 @@
+<navigation-bar title="注销账号" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <view class="card">
+      <view class="card__title">注销后将发生什么</view>
+      <view class="cancel__item">账号、收藏、意见反馈将被删除</view>
+      <view class="cancel__item">待审核的领养申请将被删除</view>
+      <view class="cancel__item">已审核的领养申请会保留，其中填写的姓名和联系方式继续用于回访</view>
+      <view class="cancel__item">账号无法恢复，再次进入会创建新账号，看不到原有记录</view>
+    </view>
+
+    <view class="card">
+      <view class="checkbox" bindtap="toggleAgree">
+        <view class="checkbox__box {{agreed ? 'checkbox__box--on' : ''}}">{{agreed ? '✓' : ''}}</view>
+        <text class="checkbox__text">我已了解以上后果</text>
+      </view>
+    </view>
+
+    <button class="btn btn--danger" bindtap="submit" loading="{{submitting}}" disabled="{{!agreed}}">确认注销</button>
+  </view>
+</scroll-view>

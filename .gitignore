@@ -25,3 +25,7 @@ desktop.ini
 # ===== 构建 / 测试产物 =====
 dist/
 coverage/
+# ===== 后端 =====
+server/target/
+server/data/
+server/.env

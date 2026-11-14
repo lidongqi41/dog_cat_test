@@ -1,0 +1,112 @@
+<navigation-bar title="上报流浪动物" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <view class="card">
+      <view class="card__title">基本信息</view>
+
+      <view class="field">
+        <view class="field__label">类型 *</view>
+        <view class="chips">
+          <view class="chip {{type === 'cat' ? 'chip--active' : ''}}" bindtap="onTypeChange" data-value="cat">猫</view>
+          <view class="chip {{type === 'dog' ? 'chip--active' : ''}}" bindtap="onTypeChange" data-value="dog">狗</view>
+        </view>
+      </view>
+
+      <view class="field">
+        <view class="field__label">名字 *</view>
+        <input class="field__input" value="{{name}}" maxlength="20" placeholder="给它起个名字" data-field="name" bindinput="onInput" />
+      </view>
+
+      <view class="field">
+        <view class="field__label">性别 *</view>
+        <view class="chips">
+          <view class="chip {{gender === 'male' ? 'chip--active' : ''}}" bindtap="onGenderChange" data-value="male">男孩</view>
+          <view class="chip {{gender === 'female' ? 'chip--active' : ''}}" bindtap="onGenderChange" data-value="female">女孩</view>
+        </view>
+      </view>
+
+      <view class="field">
+        <view class="field__label">年龄 *</view>
+        <input class="field__input" value="{{age}}" maxlength="20" placeholder="如：1 岁 / 6 个月" data-field="age" bindinput="onInput" />
+      </view>
+
+      <view class="field">
+        <view class="field__label">品种</view>
+        <input class="field__input" value="{{breed}}" maxlength="50" placeholder="如：中华田园猫" data-field="breed" bindinput="onInput" />
+      </view>
+
+      <view class="field">
+        <view class="toggle-row">
+          <text class="toggle-row__label">已绝育</text>
+          <view class="switch {{sterilized ? 'switch--on' : ''}}" bindtap="toggleSterilized"><view class="switch__dot"></view></view>
+        </view>
+        <view class="toggle-row">
+          <text class="toggle-row__label">已接种疫苗</text>
+          <view class="switch {{vaccinated ? 'switch--on' : ''}}" bindtap="toggleVaccinated"><view class="switch__dot"></view></view>
+        </view>
+      </view>
+
+      <view class="field">
+        <view class="field__label">健康状况</view>
+        <input class="field__input" value="{{health}}" maxlength="200" placeholder="如：健康 / 有皮肤病正在治疗" data-field="health" bindinput="onInput" />
+      </view>
+
+      <view class="field">
+        <view class="field__label">所在地 *</view>
+        <input class="field__input" value="{{location}}" maxlength="50" placeholder="如：东城区 · 幸福里小区" data-field="location" bindinput="onInput" />
+      </view>
+
+      <view class="field">
+        <view class="field__label">救助故事 *（10-500 字）</view>
+        <textarea class="field__textarea" value="{{story}}" maxlength="500" placeholder="怎么发现的、目前状态、是否已临时安置" data-field="story" bindinput="onInput"></textarea>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card__title">照片 *（1-9 张）</view>
+      <view class="photos">
+        <view
+          wx:for="{{images}}"
+          wx:key="*this"
+          class="photo"
+          bindtap="previewImage"
+          data-index="{{index}}"
+        >
+          <image class="photo__img" src="{{item}}" mode="aspectFill"></image>
+          <view class="photo__remove" catchtap="removeImage" data-index="{{index}}">×</view>
+        </view>
+        <view wx:if="{{images.length < 9}}" class="photo photo--add" bindtap="addImages">
+          <text class="photo__plus">{{uploading ? '…' : '+'}}</text>
+        </view>
+      </view>
+      <view class="tip">单张不超过 5MB，提交后由管理员审核。</view>
+    </view>
+
+    <view class="card">
+      <view class="card__title">联系方式</view>
+      <view class="field">
+        <view class="field__label">称呼 *</view>
+        <input class="field__input" value="{{contactName}}" maxlength="20" placeholder="怎么称呼你" data-field="contactName" bindinput="onInput" />
+      </view>
+      <view class="field">
+        <view class="field__label">手机号</view>
+        <input class="field__input" value="{{phone}}" type="number" maxlength="11" placeholder="手机号和微信号至少填一个" data-field="phone" bindinput="onInput" />
+      </view>
+      <view class="field">
+        <view class="field__label">微信号</view>
+        <input class="field__input" value="{{wechat}}" maxlength="50" placeholder="方便工作人员联系" data-field="wechat" bindinput="onInput" />
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="checkbox" bindtap="toggleAgreed">
+        <view class="checkbox__box {{agreed ? 'checkbox__box--on' : ''}}">{{agreed ? '✓' : ''}}</view>
+        <text class="checkbox__text">我承诺信息真实，照片有权使用且不含他人隐私</text>
+      </view>
+      <view class="tip">投稿先进入待审核，通过后才会出现在动物列表。平台不收取任何费用。</view>
+    </view>
+
+    <button class="btn" bindtap="submit" loading="{{submitting}}" disabled="{{uploading}}">提交投稿</button>
+  </view>
+</scroll-view>

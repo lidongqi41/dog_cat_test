@@ -1,0 +1,9 @@
+.apply__animal {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #111111;
+}
+
+.tip--center {
+  text-align: center;
+}

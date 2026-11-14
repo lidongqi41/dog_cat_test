@@ -1,0 +1,49 @@
+.summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.summary__cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140rpx;
+  height: 140rpx;
+  flex: none;
+  background: #eef1f4;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.summary__img {
+  width: 140rpx;
+  height: 140rpx;
+}
+
+.summary__emoji {
+  font-size: 60rpx;
+}
+
+.summary__info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 24rpx;
+}
+
+.summary__name {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #111111;
+}
+
+.summary__meta {
+  margin: 8rpx 0 12rpx;
+  font-size: 24rpx;
+  color: #8a8f99;
+}
+
+.checkbox__link {
+  font-size: 24rpx;
+  color: #07c160;
+}

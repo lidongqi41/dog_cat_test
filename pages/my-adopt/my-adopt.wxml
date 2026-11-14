@@ -1,0 +1,71 @@
+<navigation-bar title="我的申请" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view
+  class="page-scroll"
+  scroll-y
+  type="list"
+  lower-threshold="120"
+  bindscrolltolower="onReachBottom"
+>
+  <view class="container">
+    <view class="chips">
+      <view
+        wx:for="{{tabs}}"
+        wx:key="value"
+        class="chip {{status === item.value ? 'chip--active' : ''}}"
+        bindtap="onTabChange"
+        data-value="{{item.value}}"
+      >{{item.label}}</view>
+    </view>
+
+    <view wx:for="{{list}}" wx:key="id" class="card">
+      <view class="status-line">
+        <view class="apply__animal" bindtap="goAnimal" data-animal-id="{{item.animalId}}">
+          {{item.animalName}} · {{item.animalType === 'cat' ? '猫' : '狗'}}
+        </view>
+        <text class="tag tag--{{item.statusColor}}">{{item.statusLabel}}</text>
+      </view>
+
+      <view class="row">
+        <text class="row__key">提交时间</text>
+        <text class="row__value">{{item.createdAtText}}</text>
+      </view>
+      <view class="row" wx:if="{{item.reviewedAtText}}">
+        <text class="row__key">审核时间</text>
+        <text class="row__value">{{item.reviewedAtText}}</text>
+      </view>
+      <view class="row" wx:if="{{item.remark}}">
+        <text class="row__key">备注</text>
+        <text class="row__value">{{item.remark}}</text>
+      </view>
+
+      <button
+        wx:if="{{item.canWithdraw}}"
+        class="btn btn--ghost btn--small"
+        bindtap="withdraw"
+        data-id="{{item.id}}"
+        loading="{{withdrawingId === item.id}}"
+      >撤销申请</button>
+    </view>
+
+    <page-state
+      wx:if="{{loading && !list.length}}"
+      status="loading"
+    ></page-state>
+
+    <page-state
+      wx:elif="{{error && !list.length}}"
+      status="error"
+      text="{{error}}"
+      bind:retry="load"
+    ></page-state>
+
+    <page-state
+      wx:elif="{{!loading && !list.length}}"
+      status="empty"
+      text="还没有提交过领养申请"
+    ></page-state>
+
+    <view wx:if="{{list.length && !hasMore}}" class="tip tip--center">已经到底了</view>
+  </view>
+</scroll-view>

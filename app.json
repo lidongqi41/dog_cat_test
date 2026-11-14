@@ -1,11 +1,45 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/demo/demo"
+    "pages/animal/animal",
+    "pages/animal-detail/animal-detail",
+    "pages/notice/notice",
+    "pages/submit/submit",
+    "pages/my-submit/my-submit",
+    "pages/adopt/adopt",
+    "pages/my-adopt/my-adopt",
+    "pages/favorite/favorite",
+    "pages/mine/mine",
+    "pages/profile/profile",
+    "pages/feedback/feedback",
+    "pages/setting/setting",
+    "pages/doc/doc",
+    "pages/cancel/cancel"
   ],
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "backgroundColor": "#f7f8fa",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8a8f99",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/animal/animal",
+        "text": "动物"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
   },
   "style": "v2",
   "renderer": "skyline",

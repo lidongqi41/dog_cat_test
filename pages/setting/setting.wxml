@@ -1,0 +1,23 @@
+<navigation-bar title="设置" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <view class="card">
+      <view class="link" bindtap="clearCache">清除缓存</view>
+      <view
+        wx:for="{{docs}}"
+        wx:key="type"
+        class="link"
+        bindtap="openDoc"
+        data-type="{{item.type}}"
+      >{{item.label}}</view>
+      <view class="link" bindtap="about">关于</view>
+    </view>
+
+    <view class="card">
+      <view class="link link--danger" bindtap="goCancel">注销账号</view>
+    </view>
+
+    <view class="tip">当前版本 {{version}} · {{envName}}</view>
+  </view>
+</scroll-view>

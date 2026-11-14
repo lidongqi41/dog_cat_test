@@ -1,0 +1,48 @@
+<navigation-bar title="我的收藏" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <view
+      wx:for="{{list}}"
+      wx:key="id"
+      class="animal-card"
+      bindtap="goDetail"
+      data-id="{{item.id}}"
+    >
+      <view class="animal-card__cover">
+        <image wx:if="{{item.cover}}" class="animal-card__img" src="{{item.cover}}" mode="aspectFill"></image>
+        <text wx:else class="animal-card__emoji">{{item.type === 'cat' ? '🐱' : '🐶'}}</text>
+      </view>
+      <view class="animal-card__body">
+        <view class="animal-card__name">{{item.name}}</view>
+        <view class="animal-card__meta">{{item.breed}} · {{item.age}} · {{item.genderLabel}}</view>
+        <view class="animal-card__foot">
+          <text class="tag tag--{{item.statusColor}}">{{item.statusLabel}}</text>
+          <text
+            class="favorite__remove"
+            catchtap="remove"
+            data-id="{{item.id}}"
+          >取消收藏</text>
+        </view>
+      </view>
+    </view>
+
+    <page-state
+      wx:if="{{loading && !list.length}}"
+      status="loading"
+    ></page-state>
+
+    <page-state
+      wx:elif="{{error && !list.length}}"
+      status="error"
+      text="{{error}}"
+      bind:retry="load"
+    ></page-state>
+
+    <page-state
+      wx:elif="{{!loading && !list.length}}"
+      status="empty"
+      text="还没有收藏动物"
+    ></page-state>
+  </view>
+</scroll-view>

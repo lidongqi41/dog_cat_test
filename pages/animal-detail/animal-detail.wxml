@@ -1,0 +1,87 @@
+<navigation-bar
+  title="动物详情"
+  back="{{showBack}}"
+  homeButton="{{showHome}}"
+  color="black"
+  background="#FFF"
+></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <page-state wx:if="{{loading && !animal}}" status="loading"></page-state>
+
+    <page-state
+      wx:elif="{{error}}"
+      status="error"
+      text="{{error}}"
+      bind:retry="load"
+    ></page-state>
+
+    <block wx:elif="{{animal}}">
+      <view class="cover" bindtap="previewCover">
+        <image wx:if="{{animal.cover}}" class="cover__img" src="{{animal.cover}}" mode="aspectFill"></image>
+        <text wx:else class="cover__emoji">{{animal.type === 'cat' ? '🐱' : '🐶'}}</text>
+      </view>
+
+      <view class="card">
+        <view class="status-line">
+          <view class="detail__name">{{animal.name}}</view>
+          <text class="tag tag--{{animal.statusColor}}">{{animal.statusLabel}}</text>
+        </view>
+        <view class="row">
+          <text class="row__key">类型</text>
+          <text class="row__value">{{animal.typeLabel}}</text>
+        </view>
+        <view class="row">
+          <text class="row__key">性别</text>
+          <text class="row__value">{{animal.genderLabel}}</text>
+        </view>
+        <view class="row">
+          <text class="row__key">年龄</text>
+          <text class="row__value">{{animal.age}}</text>
+        </view>
+        <view class="row">
+          <text class="row__key">品种</text>
+          <text class="row__value">{{animal.breed}}</text>
+        </view>
+        <view class="row">
+          <text class="row__key">绝育</text>
+          <text class="row__value">{{animal.sterilized ? '已绝育' : '未绝育'}}</text>
+        </view>
+        <view class="row">
+          <text class="row__key">疫苗</text>
+          <text class="row__value">{{animal.vaccinated ? '已接种' : '未接种'}}</text>
+        </view>
+        <view class="row">
+          <text class="row__key">健康状况</text>
+          <text class="row__value">{{animal.health}}</text>
+        </view>
+        <view class="row">
+          <text class="row__key">所在地</text>
+          <text class="row__value">{{animal.location}}</text>
+        </view>
+      </view>
+
+      <view class="card" wx:if="{{animal.story}}">
+        <view class="card__title">救助故事</view>
+        <view class="story">{{animal.story}}</view>
+      </view>
+
+      <view class="card" wx:if="{{animal.tags && animal.tags.length}}">
+        <view class="card__title">标签</view>
+        <view class="chips">
+          <view wx:for="{{animal.tags}}" wx:key="*this" class="chip">{{item}}</view>
+        </view>
+      </view>
+
+      <view class="action-row">
+        <button class="btn btn--ghost" bindtap="toggleFavorite">{{favorite ? '已收藏' : '收藏'}}</button>
+        <button
+          class="btn {{animal.status !== 'available' ? 'btn--disabled' : ''}}"
+          bindtap="goAdopt"
+          disabled="{{animal.status !== 'available'}}"
+        >{{animal.status === 'available' ? '申请领养' : animal.statusLabel}}</button>
+      </view>
+    </block>
+  </view>
+</scroll-view>

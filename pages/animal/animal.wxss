@@ -1,0 +1,30 @@
+.search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12rpx 16rpx;
+  margin-bottom: 20rpx;
+  background: #ffffff;
+  border-radius: 999rpx;
+}
+
+.search__input {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.search__clear {
+  padding: 0 16rpx;
+  font-size: 24rpx;
+  color: #8a8f99;
+}
+
+.search__btn {
+  padding: 0 20rpx;
+  font-size: 26rpx;
+  color: #07c160;
+}
+
+.tip--center {
+  text-align: center;
+}

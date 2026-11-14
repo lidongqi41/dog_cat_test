@@ -1,0 +1,32 @@
+<navigation-bar title="编辑资料" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="container">
+    <view class="card">
+      <view class="avatar-row">
+        <avatar src="{{avatar}}" name="{{nickname}}" size="{{140}}"></avatar>
+        <button
+          class="btn btn--ghost btn--small"
+          open-type="chooseAvatar"
+          bindchooseavatar="onChooseAvatar"
+        >使用微信头像</button>
+      </view>
+
+      <view class="field">
+        <view class="field__label">昵称</view>
+        <input
+          class="field__input"
+          type="nickname"
+          value="{{nickname}}"
+          placeholder="请输入昵称"
+          maxlength="20"
+          bindinput="onNicknameInput"
+        />
+      </view>
+    </view>
+
+    <view class="tip">头像仅保存在本机，不上传服务器；更换设备、清除微信存储或卸载后需要重新设置。</view>
+
+    <button class="btn" bindtap="save" loading="{{saving}}">保存</button>
+  </view>
+</scroll-view>
