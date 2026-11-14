@@ -70,7 +70,7 @@ module.exports = Object.assign({
   ENV: ENV,
   apiPrefix: '/api/v1',
   timeout: 15000,
-  appVersion: 'v0.2.0-dev',
+  appVersion: 'v0.2.0',
   storageKeys: {
     session: 'wp_session',
     avatar: 'wp_avatar'

@@ -2,7 +2,7 @@
 
 **新会话开工先读这一份**，再读 `docs/ARCHITECTURE.md`、`docs/DECISIONS.md` 和 `README.md`。目标是让人（或另一个对话）在 5 分钟内知道：现在在哪、下一步做什么、有哪些坑。
 
-最后更新：2026-11-14（前端 15 页 + 后端 + 管理后台落地，尚未提交/打 tag）
+最后更新：2026-11-14（v0.2.0 已提交、合并 main、打 tag）
 
 ---
 
@@ -49,7 +49,7 @@
 |---|---|
 | 远程 | `origin` → GitHub `lidongqi41/dog_cat_test`；`gitee` → Gitee `likedonqi/dog_cat_test`（SSH） |
 | 分支 | `main`（可发布，GitHub 侧有保护）、`dev`（日常） |
-| 最新 tag | `v0.1.1`（本次前端改动**尚未提交、未打 tag**） |
+| 最新 tag | `v0.2.0`（前端 15 页 + 后端 + 管理后台） |
 | 同步命令 | `git push-all`（两边分支）；tag 需单独推 |
 
 ## 已完成
@@ -80,6 +80,7 @@
 - [x] 管理后台 `admin/`：Vue 3 + Vite + Element Plus
 - [x] 管理后台页面：登录、数据概览、投稿审核、领养申请、动物档案
 - [x] 管理后台 `npm run build` 通过，Vite `/api` 代理联调通过
+- [x] `v0.2.0` 提交到 `dev`，合并 `main` 并打 tag，推送 GitHub
 
 ## 下一步待办
 
